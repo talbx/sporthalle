@@ -1,0 +1,12 @@
+version: 3
+tasks:
+  run:
+    cmd: go run .
+  build:
+    cmd: go build .
+  lint:
+    cmd: golangci-lint run
+  dockerize:
+    cmd: docker build . -t sporthalle:{{.VERSION}}
+    vars:
+      VERSION: 1.0.0
