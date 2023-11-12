@@ -10,3 +10,10 @@ tasks:
     cmd: docker build . -t sporthalle:{{.VERSION}}
     vars:
       VERSION: 1.0.0
+  bundle:
+    cmds:
+      - mkdir -p sporthalle.app/Contents/MacOS
+      - go build -o sporthalle.app/Contents/MacOS/sporthalle
+      - task: launch
+  launch:
+    cmd: open sporthalle.app
