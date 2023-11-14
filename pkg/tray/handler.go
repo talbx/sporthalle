@@ -28,7 +28,7 @@ func determine(todayEvent *types.Event, mQuit *systray.MenuItem) *systray.MenuIt
 }
 
 func handleEventToday(todayEvent *types.Event, mQuit *systray.MenuItem) *systray.MenuItem {
-	systray.SetTitle("Sporthalle ⚠️")
+	systray.SetTitle("⚠️")
 	s := fmt.Sprintf("%s @ %s %s", todayEvent.Name, todayEvent.Date.Format("02.01.2006"), todayEvent.Start)
 	systray.AddMenuItem(s, "Today's Event")
 	mQuit = systray.AddMenuItem("Exit", "Quit the whole app")
@@ -37,7 +37,7 @@ func handleEventToday(todayEvent *types.Event, mQuit *systray.MenuItem) *systray
 }
 
 func handleNoEvent(mQuit *systray.MenuItem) *systray.MenuItem {
-	systray.SetTitle("Sporthalle")
+	systray.SetTitle("")
 	systray.AddMenuItem("No Event today", "lucky you!")
 	mQuit = systray.AddMenuItem("Exit", "Quit the whole app")
 	systray.SetIcon(Green)
