@@ -13,7 +13,13 @@ tasks:
   bundle:
     cmds:
       - mkdir -p sporthalle.app/Contents/MacOS
+      - mkdir -p sporthalle.app/Contents/Resources
+      - cp Info.plist sporthalle.app/Contents/.
       - go build -o sporthalle.app/Contents/MacOS/sporthalle
-      - task: launch
+      - cp app.icns sporthalle.app/Contents/Resources/sporthalle.icns
+      - mv sporthalle.app /Applications/sporthalle.app
+      #- task: launch
   launch:
     cmd: open sporthalle.app
+  remove:
+    cmd: trash /Applications/sporthalle.app
