@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Install Platform Dependencies
         run: sudo apt-get install gcc libgtk-3-dev libayatana-appindicator3-dev
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         name: Checkout
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
