@@ -5,6 +5,7 @@ go 1.21.3
 require (
 	github.com/getlantern/systray v1.2.2
 	github.com/gocolly/colly v1.2.0
+	github.com/gocolly/colly/v2 v2.1.0
 	github.com/gregdel/pushover v1.3.0
 	gopkg.in/yaml.v3 v3.0.1
 )
