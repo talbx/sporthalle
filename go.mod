@@ -1,6 +1,6 @@
 module github.com/talbx/sporthalle
 
-go 1.21.4
+go 1.21.5
 
 require (
 	github.com/getlantern/systray v1.2.2
