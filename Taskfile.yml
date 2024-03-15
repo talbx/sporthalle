@@ -6,10 +6,6 @@ tasks:
     cmd: go build .
   lint:
     cmd: golangci-lint run
-  dockerize:
-    cmd: docker build . -t sporthalle:{{.VERSION}}
-    vars:
-      VERSION: 1.0.0
   bundle:
     cmds:
       - mkdir -p sporthalle.app/Contents/MacOS

@@ -61,10 +61,6 @@ func (sc SporthallenCollector) Run() ([]Event, error) {
 
 	})
 
-	c.OnRequest(func(r *colly.Request) {
-		LOGGER.Info("fetching events..", "url", r.URL.String())
-	})
-
 	err := c.Visit(Sporthalle)
 	if err != nil {
 		return nil, err

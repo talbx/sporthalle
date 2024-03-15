@@ -8,7 +8,12 @@ import (
 var notifyIt = false
 
 func Run() []types.Event {
-	co := types.CollectorFactory{}.Create("")
+	collector := types.CollectorFactory{}.Create("")
+	run := runCollector(collector)
+	return run
+}
+
+func runCollector(co types.Collector) []types.Event {
 	events, err := co.Run()
 	if err != nil {
 		types.LOGGER.Error(err.Error())
