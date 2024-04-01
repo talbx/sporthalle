@@ -1,10 +1,10 @@
 module github.com/talbx/sporthalle
 
-go 1.21.5
+go 1.22.1
 
 require (
 	github.com/getlantern/systray v1.2.2
-	github.com/go-co-op/gocron/v2 v2.2.6
+	github.com/go-co-op/gocron/v2 v2.2.9
 	github.com/gocolly/colly v1.2.0
 	github.com/gregdel/pushover v1.3.0
 	github.com/stretchr/testify v1.9.0
