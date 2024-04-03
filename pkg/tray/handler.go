@@ -1,13 +1,14 @@
 package tray
 
 import (
-	"github.com/go-co-op/gocron/v2"
-	"github.com/talbx/sporthalle/pkg/eval"
-	"github.com/talbx/sporthalle/pkg/run"
-	"github.com/talbx/sporthalle/pkg/types"
 	"log/slog"
 	"os"
 	"time"
+
+	"github.com/go-co-op/gocron/v2"
+	"github.com/talbx/sporthalle/pkg/collect"
+	"github.com/talbx/sporthalle/pkg/eval"
+	"github.com/talbx/sporthalle/pkg/types"
 )
 
 func OnReady() {
@@ -37,13 +38,14 @@ func OnReady() {
 }
 
 func executionFunc(s gocron.Scheduler, svc *SystrayService) {
-	events := run.Run()
-	todayEvent := eval.IsEvent(events)
+	events := collect.Run()
+	todayEvent, nextEvent := eval.UpcomingEvents(events)
 	// there should be only exactly one job
 	nextRun, _ := s.Jobs()[0].NextRun()
 	context := ExecutionContext{
-		Event:   todayEvent,
-		NextRun: nextRun,
+		CurrentEvent: todayEvent,
+		NextEvent:    nextEvent,
+		NextRun:      nextRun,
 	}
 
 	svc.Tell(context)
@@ -51,8 +53,9 @@ func executionFunc(s gocron.Scheduler, svc *SystrayService) {
 }
 
 type ExecutionContext struct {
-	Event   *types.Event
-	NextRun time.Time
+	CurrentEvent *types.Event
+	NextEvent    types.Event
+	NextRun      time.Time
 }
 
 func OnExit() {

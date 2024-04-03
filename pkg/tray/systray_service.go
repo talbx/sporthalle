@@ -3,28 +3,36 @@ package tray
 import (
 	"fmt"
 	"github.com/getlantern/systray"
+	"github.com/talbx/sporthalle/pkg/types"
+	"log"
+	"os/exec"
+	"runtime"
 	"time"
 )
 
 type SystrayService struct {
-	eventIndicator   *systray.MenuItem
-	refreshIndicator *systray.MenuItem
-	quitButton       *systray.MenuItem
-	NextRun          time.Time
+	eventIndicator     *systray.MenuItem
+	nextEventIndicator *systray.MenuItem
+	refreshIndicator   *systray.MenuItem
+	quitButton         *systray.MenuItem
+	NextRun            time.Time
 }
 
 func NewSystrayService() *SystrayService {
 	return &SystrayService{
-		eventIndicator:   systray.AddMenuItem("", "Today's event"),
-		refreshIndicator: systray.AddMenuItem("", "When will the event refresh"),
-		quitButton:       systray.AddMenuItem("Quit", "Quits Sporthalle"),
+		eventIndicator:     systray.AddMenuItem("", "Today's event"),
+		nextEventIndicator: systray.AddMenuItem("", "Next Event"),
+		refreshIndicator:   systray.AddMenuItem("", "When will the event refresh"),
+		quitButton:         systray.AddMenuItem("Quit", "Quits Sporthalle"),
 	}
 }
 
 func (s *SystrayService) Tell(executionCtx ExecutionContext) {
 	go s.provideRefreshMenuItem(executionCtx)
+	go s.handleEventClick(s.eventIndicator.ClickedCh)
+	go s.handleEventClick(s.nextEventIndicator.ClickedCh)
 
-	if nil == executionCtx.Event {
+	if nil == executionCtx.CurrentEvent {
 		s.handleNoEvent(executionCtx)
 		return
 	}
@@ -39,20 +47,27 @@ func (s *SystrayService) provideRefreshMenuItem(ec ExecutionContext) {
 		if timeRemaining <= 0 {
 			break
 		}
-		s.refreshIndicator.SetTitle(fmt.Sprintf("Next update in: %d\n", timeRemaining))
+		s.refreshIndicator.SetTitle(fmt.Sprintf("Refresh in: %d\n", timeRemaining))
 	}
 }
 
 func (s *SystrayService) handleEventToday(ec ExecutionContext) {
 	systray.SetTitle("⚠️")
-	text := fmt.Sprintf("%s @ %s %s", ec.Event.Name, ec.Event.Date.Format("02.01.2006"), ec.Event.Start)
-	s.eventIndicator.SetTitle(text)
+	currentText := s.createEventMessage(*ec.CurrentEvent)
+	nextText := s.createEventMessage(ec.NextEvent)
+	s.eventIndicator.SetTitle(currentText)
+	s.nextEventIndicator.SetTitle(nextText)
 	systray.SetIcon(Red)
 }
 
 func (s *SystrayService) handleNoEvent(ec ExecutionContext) {
-	s.eventIndicator.SetTitle("No Event today")
+	s.eventIndicator.SetTitle("No Event today!")
+	s.nextEventIndicator.SetTitle("Next Event: " + s.createEventMessage(ec.NextEvent))
 	systray.SetIcon(Green)
+}
+
+func (s *SystrayService) createEventMessage(event types.Event) string {
+	return fmt.Sprintf("%s @ %s %s", event.Name, event.Date.Format("02.01.2006"), event.Start)
 }
 
 func getTimeRemaining(t time.Time) int {
@@ -68,4 +83,29 @@ func getTimeRemaining(t time.Time) int {
 func (s *SystrayService) Quit() {
 	<-s.quitButton.ClickedCh
 	systray.Quit()
+}
+
+func (s *SystrayService) handleEventClick(ch chan struct{}) {
+	<-ch
+	err := open("https://ssl.webpack.de/termine.sporthallehamburg.de/pr/clipper.php")
+	if err != nil {
+		log.Default().Print(err)
+	}
+}
+
+func open(url string) error {
+	var cmd string
+	var args []string
+
+	switch runtime.GOOS {
+	case "windows":
+		cmd = "cmd"
+		args = []string{"/c", "start"}
+	case "darwin":
+		cmd = "open"
+	default: // "linux", "freebsd", "openbsd", "netbsd"
+		cmd = "xdg-open"
+	}
+	args = append(args, url)
+	return exec.Command(cmd, args...).Start()
 }

@@ -1,19 +1,23 @@
-package run
+package notify
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/gregdel/pushover"
 	"github.com/talbx/sporthalle/pkg/eval"
 	"github.com/talbx/sporthalle/pkg/types"
 	"gopkg.in/yaml.v3"
-	"os"
 )
 
+type Notifier interface {
+	Notify(events []types.Event) (string, error)
+}
 type PushoverNotifier struct {
 }
 
 func (p PushoverNotifier) Notify(events []types.Event) (string, error) {
-	event := eval.IsEvent(events)
+	event, _ := eval.UpcomingEvents(events)
 	if event != nil {
 		types.LOGGER.Info("There is an event today! will send pushover message", "event", event.Name, "date", event.Date)
 		return p.sendMessage(*event)
@@ -42,7 +46,7 @@ func (p PushoverNotifier) sendMessage(event types.Event) (string, error) {
 		Priority: pushover.PriorityNormal,
 		Sound:    pushover.SoundSiren,
 		URLTitle: "sporthalle termin übersicht",
-		URL:      types.Sporthalle,
+		URL:      "https://ssl.webpack.de/termine.sporthallehamburg.de/pr/clipper.php",
 	}
 	recipient := pushover.NewRecipient(conf.UserToken)
 	response, err := pushover.New(conf.ApiToken).SendMessage(message, recipient)

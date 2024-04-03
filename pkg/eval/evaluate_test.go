@@ -18,9 +18,9 @@ func TestIsEventTrue(t *testing.T) {
 		Date:  time.Now().AddDate(0, 1, 0),
 	}}
 
-	event := IsEvent(events)
-	assert.NotNil(t, event)
-	assert.Equal(t, *event, events[0])
+	today, _ := UpcomingEvents(events)
+	assert.NotNil(t, today)
+	assert.Equal(t, *today, events[0])
 }
 
 func TestIsEventNo(t *testing.T) {
@@ -34,6 +34,6 @@ func TestIsEventNo(t *testing.T) {
 		Date:  time.Now().AddDate(0, 1, 0),
 	}}
 
-	event := IsEvent(events)
-	assert.Nil(t, event)
+	today, _ := UpcomingEvents(events)
+	assert.Nil(t, today)
 }
