@@ -1,10 +1,9 @@
 package eval
 
 import (
+	"github.com/talbx/sporthalle/pkg/core/types"
 	"slices"
 	"time"
-
-	"github.com/talbx/sporthalle/pkg/types"
 )
 
 func UpcomingEvents(events []types.Event) (today *types.Event, next types.Event) {
@@ -25,7 +24,7 @@ func UpcomingEvents(events []types.Event) (today *types.Event, next types.Event)
 			return todaysEvent, event
 		}
 		if event.Date.Year() == now.Year() && event.Date.YearDay() == now.YearDay() {
-			types.LOGGER.Info("There is an event today", "event", event.Name, "date", event.Date)
+			//slog.Default().Info("There is an event today", "event", event.Name, "date", event.Date)
 			todaysEvent = &event
 		}
 	}

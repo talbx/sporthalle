@@ -1,14 +1,14 @@
 package tray
 
 import (
+	"github.com/talbx/sporthalle/pkg/core/collect"
+	"github.com/talbx/sporthalle/pkg/core/eval"
+	"github.com/talbx/sporthalle/pkg/core/types"
 	"log/slog"
 	"os"
 	"time"
 
 	"github.com/go-co-op/gocron/v2"
-	"github.com/talbx/sporthalle/pkg/collect"
-	"github.com/talbx/sporthalle/pkg/eval"
-	"github.com/talbx/sporthalle/pkg/types"
 )
 
 func OnReady() {
@@ -33,12 +33,13 @@ func OnReady() {
 		os.Exit(1)
 	}
 	s.Start()
-	types.LOGGER.Info("Successfully started Sporthalle tray widget!")
+	slog.Default().Info("Successfully started Sporthalle tray widget!")
 
 }
 
 func executionFunc(s gocron.Scheduler, svc *SystrayService) {
-	events := collect.Run()
+	collector := collect.NewCollector(slog.Default())
+	events := collector.Run()
 	todayEvent, nextEvent := eval.UpcomingEvents(events)
 	// there should be only exactly one job
 	nextRun, _ := s.Jobs()[0].NextRun()

@@ -2,42 +2,39 @@ package collect
 
 import (
 	"fmt"
+	"github.com/talbx/sporthalle/pkg/core/types"
+	"log/slog"
 	"os"
 	"regexp"
 	"strings"
 	"time"
 
 	"github.com/gocolly/colly"
-	"github.com/talbx/sporthalle/pkg/notify"
-	"github.com/talbx/sporthalle/pkg/types"
 )
 
 var Sporthalle = "https://ssl.webpack.de/termine.sporthallehamburg.de/pr/clipper.php"
 var lastEntry = "Beginn: first"
 
-func Run() []types.Event {
-	events, err := collect()
+type Collector struct {
+	log *slog.Logger
+}
+
+func NewCollector(log *slog.Logger) Collector {
+	return Collector{log: log}
+}
+
+func (c *Collector) Run() []types.Event {
+	events, err := c.collect()
 	if err != nil {
-		types.LOGGER.Error(err.Error())
+		c.log.Error(err.Error())
 		os.Exit(1)
 	}
 
-	types.LOGGER.Info("sucessfully created event list", "event size", len(events))
-
-	if false {
-		var n notify.Notifier = notify.PushoverNotifier{}
-
-		no, err := n.Notify(events)
-		if err != nil {
-			types.LOGGER.Error(err.Error())
-			os.Exit(1)
-		}
-		types.LOGGER.Info("successfully notified.", "id", no)
-	}
+	c.log.Info("sucessfully created event list", "event size", len(events))
 	return events
 }
 
-func collect() ([]types.Event, error) {
+func (m *Collector) collect() ([]types.Event, error) {
 	events := make([]string, 0)
 	dates := make([]string, 0)
 	starts := make([]string, 0)
@@ -52,7 +49,7 @@ func collect() ([]types.Event, error) {
 			dateMatch, _ := regexp.MatchString("^(Mo|Di|Mi|Do|Fr|Sa|So) [0-9][0-9]*.[0-9][0-9]*.202[0-9]", e.Text)
 			if dateMatch {
 				if !strings.HasPrefix(lastEntry, "Einlass") && !strings.HasPrefix(lastEntry, "Beginn") {
-					types.LOGGER.Debug(fmt.Sprintf("The last entry for %v does not have a starting time. will add n/a as starting time", lastEntry))
+					m.log.Debug(fmt.Sprintf("The last entry for %v does not have a starting time. will add n/a as starting time", lastEntry))
 					starts = append(starts, "Einlass n/a")
 					lastEntry = "Einlass: n/a"
 				}
@@ -82,7 +79,7 @@ func collect() ([]types.Event, error) {
 	if len(events) == len(dates) && len(dates) > len(starts) {
 		starts = append(starts, "Einlass n/a")
 	}
-	types.LOGGER.Info("calculation concluded.", "event size", len(events), "date size", len(dates), "time size", len(starts))
+	m.log.Info("calculation concluded.", "event size", len(events), "date size", len(dates), "time size", len(starts))
 
 	for i, event := range events {
 		date := dates[i]

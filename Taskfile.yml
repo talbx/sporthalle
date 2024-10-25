@@ -1,7 +1,11 @@
 version: 3
 tasks:
-  run:
-    cmd: go run .
+  buildfn:
+    cmd: go build sporthalle-fn/fn.go
+  runfn:
+    cmd: go run cmd/fn/fn.go
+  runtray:
+    cmd: go run cmd/tray/tray.go
   build:
     cmd: go build .
   lint:
@@ -11,7 +15,7 @@ tasks:
       - mkdir -p sporthalle.app/Contents/MacOS
       - mkdir -p sporthalle.app/Contents/Resources
       - cp Info.plist sporthalle.app/Contents/.
-      - go build -o sporthalle.app/Contents/MacOS/sporthalle
+      - go build -o sporthalle.app/Contents/MacOS/sporthalle/cmd/tray
       - cp app.icns sporthalle.app/Contents/Resources/sporthalle.icns
       - mv sporthalle.app /Applications/sporthalle.app
       #- task: launch

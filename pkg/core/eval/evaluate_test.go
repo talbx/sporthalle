@@ -2,7 +2,7 @@ package eval
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/talbx/sporthalle/pkg/types"
+	"github.com/talbx/sporthalle/pkg/core/types"
 	"testing"
 	"time"
 )

@@ -3,7 +3,7 @@ package tray
 import (
 	"fmt"
 	"github.com/getlantern/systray"
-	"github.com/talbx/sporthalle/pkg/types"
+	"github.com/talbx/sporthalle/pkg/core/types"
 	"log"
 	"os/exec"
 	"runtime"
