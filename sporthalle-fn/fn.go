@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	"github.com/cloudevents/sdk-go/v2/event"
-	"github.com/talbx/sporthalle/pkg/core/collect"
-	"github.com/talbx/sporthalle/pkg/notify"
+	"github.com/talbx/sporthalle/lib/core/collect"
+	"github.com/talbx/sporthalle/lib/notify"
 	"log/slog"
 	"os"
 )

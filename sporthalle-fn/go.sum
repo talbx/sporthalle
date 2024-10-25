@@ -55,8 +55,8 @@ github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
-github.com/talbx/sporthalle v0.0.0-20241025110834-45af2dbe6ab3 h1:mpQ43kiuAm7CmZn0l3LWGShXs/Trh3IFNUrvMktZYMY=
-github.com/talbx/sporthalle v0.0.0-20241025110834-45af2dbe6ab3/go.mod h1:KkvuUCavJ3OJKBO8+fm6jCayKiMV7f4UwuREzDizHmw=
+github.com/talbx/sporthalle v0.0.0-20241025120648-05a6baf4cfb1 h1:NV2ykqbcW+725yokR0tcA6kOFkH7WYDApj9zFGdcxeU=
+github.com/talbx/sporthalle v0.0.0-20241025120648-05a6baf4cfb1/go.mod h1:KkvuUCavJ3OJKBO8+fm6jCayKiMV7f4UwuREzDizHmw=
 github.com/temoto/robotstxt v1.1.2 h1:W2pOjSJ6SWvldyEuiFXNxz3xZ8aiWX5LbfDiOFd7Fxg=
 github.com/temoto/robotstxt v1.1.2/go.mod h1:+1AmkuG3IYkh1kv0d2qEB9Le88ehNO0zwOr3ujewlOo=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
