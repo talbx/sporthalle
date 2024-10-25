@@ -6,7 +6,7 @@ require (
 	github.com/GoogleCloudPlatform/functions-framework-go v1.9.0
 	github.com/cloudevents/sdk-go/v2 v2.15.2
 	github.com/stretchr/testify v1.9.0
-	github.com/talbx/sporthalle v0.0.0-20241025120648-05a6baf4cfb1
+	github.com/talbx/sporthalle v0.0.0-20241025121527-50fabd5dd2dd
 )
 
 require (
