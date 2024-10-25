@@ -2,7 +2,7 @@ package collect
 
 import (
 	"fmt"
-	"github.com/talbx/sporthalle/pkg/core/types"
+	"github.com/talbx/sporthalle/lib/core/types"
 	"log/slog"
 	"os"
 	"regexp"

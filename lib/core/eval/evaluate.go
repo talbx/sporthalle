@@ -1,7 +1,7 @@
 package eval
 
 import (
-	"github.com/talbx/sporthalle/pkg/core/types"
+	"github.com/talbx/sporthalle/lib/core/types"
 	"slices"
 	"time"
 )

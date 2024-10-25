@@ -2,8 +2,8 @@ package notify
 
 import (
 	"fmt"
-	"github.com/talbx/sporthalle/pkg/core/eval"
-	"github.com/talbx/sporthalle/pkg/core/types"
+	"github.com/talbx/sporthalle/lib/core/eval"
+	"github.com/talbx/sporthalle/lib/core/types"
 	"log/slog"
 	"os"
 	"time"

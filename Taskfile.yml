@@ -1,15 +1,30 @@
 version: 3
 tasks:
-  buildfn:
-    cmd: go build sporthalle-fn/fn.go
+  default:
+    cmd: task --list-all
+    desc: "list all available tasks"
+  build-tray:
+    cmd: cd sporthalle-tray && go build .
+    desc: "build the macOs tray app"
+  build-fn:
+    cmd: cd sporthalle-fn && go build .
+    desc: "build the function app"
   runfn:
-    cmd: go run cmd/fn/fn.go
+    cmd: go run sporthalle-fn/fn.go
+    desc: "run the function app"
   runtray:
-    cmd: go run cmd/tray/tray.go
+    cmd: go run sporthalle-tray/tray.go
+    desc: "run the macOs tray app"
+  test-lib:
+    cmd: go test -v ./...
+  test-fn:
+    cmd: cd sporthalle-fn && go test -v ./...
   build:
-    cmd: go build .
+    cmd: cd lib && go build ./...
+    desc: "build the core library"
   lint:
     cmd: golangci-lint run
+    desc: "run golangci-lint"
   bundle:
     cmds:
       - mkdir -p sporthalle.app/Contents/MacOS
