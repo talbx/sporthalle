@@ -1,13 +1,13 @@
 module github.com/talbx/sporthalle
 
-go 1.22
+go 1.24.0
 
 require (
 	github.com/getlantern/systray v1.2.2
-	github.com/go-co-op/gocron/v2 v2.2.9
+	github.com/go-co-op/gocron/v2 v2.18.2
 	github.com/gocolly/colly v1.2.0
-	github.com/gregdel/pushover v1.3.0
-	github.com/stretchr/testify v1.9.0
+	github.com/gregdel/pushover v1.4.0
+	github.com/stretchr/testify v1.11.1
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -31,7 +31,7 @@ require (
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
-	github.com/jonboulle/clockwork v0.4.0 // indirect
+	github.com/jonboulle/clockwork v0.5.0 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/oxtoacart/bpool v0.0.0-20190530202638-03653db5a59c // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
