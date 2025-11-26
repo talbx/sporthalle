@@ -4,7 +4,7 @@ go 1.22.1
 
 require (
 	github.com/getlantern/systray v1.2.2
-	github.com/talbx/sporthalle v0.0.0-20241025120648-05a6baf4cfb1
+	github.com/talbx/sporthalle v0.0.0-20241025121527-50fabd5dd2dd
 )
 
 require (
